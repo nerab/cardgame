@@ -16,6 +16,13 @@ module CardGame
       trumps.each{|j| push Trump.new(j)}
     end
     
+    #
+    # Deal out a shuffled deck
+    #
+    def deal
+      @cards.sort_by{rand}
+    end
+    
     def ranks
       []
     end
@@ -28,9 +35,9 @@ module CardGame
       []
     end
     
-    def_delegator :@cards, :push
-    def_delegator :@cards, :<<
-    def_delegator :@cards, :pop
     def_delegator :@cards, :size
+    
+    private
+    def_delegator :@cards, :push
   end
 end

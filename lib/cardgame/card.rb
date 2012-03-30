@@ -1,5 +1,7 @@
 module CardGame
   class BaseCard
+    attr_reader :rank
+    
     def initialize(rank)
       @rank = rank
     end
@@ -17,16 +19,22 @@ module CardGame
     def trump?
       true
     end
+    
+    def suit
+      nil
+    end
   end
   
   class Card < BaseCard
+    attr_reader :suit
+    
     def initialize(rank, suit)
       super(rank)
       @suit = suit
     end
 
     def to_s
-      "#{super} #{@suit}"
+      "#{@suit} #{super}"
     end
   end
 end

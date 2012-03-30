@@ -1,4 +1,6 @@
 require 'cardgame/version'
 require 'cardgame/deck'
 require 'cardgame/card'
+require 'cardgame/player'
 require 'cardgame/uno'
+require 'cardgame/french'
