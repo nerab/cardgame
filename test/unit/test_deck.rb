@@ -2,7 +2,7 @@ require 'helper'
 
 class TestUnoDeck < Test::Unit::TestCase
   def setup
-    @deck = Uno::Deck.new
+    @deck = Uno::UnoDeck.new
   end
   
   def test_size
