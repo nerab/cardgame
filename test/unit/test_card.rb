@@ -2,7 +2,7 @@ require 'helper'
 
 class TestCard < Test::Unit::TestCase
   def setup
-    @card = Uno::Card.new('foo', 'bar')
+    @card = CardGame::Card.new('foo', 'bar')
   end
   
   def test_to_s

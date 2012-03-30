@@ -1,4 +1,4 @@
 Uno Card Game
 =============
 
-This is an exercise created for my son. It models the card game Uno.
+This is a programming exercise created for my son. It models some card games and their rules, especially Uno.

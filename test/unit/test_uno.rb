@@ -1,8 +1,8 @@
 require 'helper'
 
-class TestUnoDeck < Test::Unit::TestCase
+class TestUno < Test::Unit::TestCase
   def setup
-    @deck = Uno::UnoDeck.new
+    @deck = CardGame::Uno.new
   end
   
   def test_size

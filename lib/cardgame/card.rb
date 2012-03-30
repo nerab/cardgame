@@ -1,4 +1,4 @@
-module Uno
+module CardGame
   class BaseCard
     def initialize(rank)
       @rank = rank

@@ -1,17 +1,17 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "uno/version"
+require "cardgame/version"
 
 Gem::Specification.new do |s|
-  s.name        = "uno"
-  s.version     = Uno::VERSION
+  s.name        = "cardgame"
+  s.version     = CardGame::VERSION
   s.authors     = ["Nicholas E. Rabenau"]
   s.email       = ["nerab@gmx.net"]
   s.homepage    = ""
-  s.summary     = %q{Models the card game UNO}
-  s.description = %q{This gem is a small exercise in OO modeling. It models the card game UNO.}
+  s.summary     = %q{Models card games, e.g. Uno}
+  s.description = %q{This gem is a small exercise in OO modeling. It models card games, especially Uno.}
 
-  s.rubyforge_project = "uno"
+  s.rubyforge_project = "cardgame"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

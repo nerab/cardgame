@@ -1,4 +1,4 @@
-module Uno
+module CardGame
   class FrenchDeck < Deck
   end
 end

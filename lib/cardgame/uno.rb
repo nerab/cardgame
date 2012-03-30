@@ -1,5 +1,5 @@
-module Uno
-  class UnoDeck < Deck
+module CardGame
+  class Uno < Deck
     def ranks
       ['0'].concat(%w{1 2 3 4 5 6 7 8 9 Reverse Skip} * 2).concat(['Draw 2'] * 2)
     end

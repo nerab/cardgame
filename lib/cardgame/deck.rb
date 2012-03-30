@@ -1,6 +1,6 @@
 require 'forwardable'
 
-module Uno
+module CardGame
   class Deck
     extend Forwardable
     
