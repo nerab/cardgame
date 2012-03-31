@@ -15,13 +15,11 @@ module CardGame
     end
   end
   
-  class Trump < BaseCard    
+  class Trump < BaseCard
+    # When playing a trump card, the player can set which suit it has so that the next player has to follow it
+    attr_accessor :suit
     def trump?
       true
-    end
-    
-    def suit
-      nil
     end
   end
   

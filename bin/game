@@ -1,0 +1,80 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+require 'cardgame'
+include CardGame
+
+players = []
+('A'..'C').each{|i| players << Player.new(i)}
+
+stack = Uno.new.deal
+
+Array.class_eval do
+  def replenish(pile)
+    concat(pile)
+    pile.clear
+    sort_by!{rand}
+  end
+end
+
+7.times{
+  players.each{|player|
+    player << stack.pop
+  }
+}
+
+# init the game
+pile = []
+
+begin
+  pile.push(stack.pop)
+end while pile.first.trump? # do not allow trumps (jokers) as initial card
+
+puts "Starting the game with #{players.size} players"
+
+# main game loop - ask each player to play. Maintain the stack.
+begin
+  players.each{|player|
+    begin      
+      played = player.play(pile.last) #  TODO Potentially need a timeout
+      
+      if played && matches_rules(played, pile.last)
+        pile.push(played)
+      else
+        stack.replenish(pile) if stack.empty? # replenish stack from pile
+        player << stack.pop # draw a card from the stack
+      end
+    rescue RuleViolation => v
+      puts v.message
+      player << played # Push the offending card back to the player
+      retry
+    rescue Uno => card
+      puts "#{player} says: Uno!"
+    rescue UnoUno => card
+      raise "#{player} says: Uno Uno!"
+    end
+  }
+end while !players.any?{|player| player.empty?}
+
+#
+# Ensure that everyone follows the rules
+#
+def matches_rules(played, pile)
+  true
+end
+
+def dump_game(players, stack, pile)
+  players.each_with_index{|player, i|
+    puts
+    puts "* player ##{i} (#{player.size})"
+    puts player
+  }
+  
+  puts
+  puts "* Stack (#{stack.size})"
+  puts stack
+  
+  puts
+  puts "* Pile (#{pile.size})"
+  puts pile
+end

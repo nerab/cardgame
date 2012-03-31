@@ -1,0 +1,1 @@
+* Build a rules engine that enforces the game rules and prevents cheating (it must not be possible to add new cards to the deck)

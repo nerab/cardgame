@@ -11,7 +11,7 @@ module CardGame
     end
     
     def to_s
-      "Player #{@name} (#{size} cards)"
+      "Player #{@name}"
     end
     
     #
@@ -22,12 +22,29 @@ module CardGame
     # we need to implement a notification mechanism that tells every player which card the current player played.
     #
     # TODO Need to obey if top_card is a trump, unless we can trump that
+    # TODO If the game system allows it, return two same cards
     #
     def play(top_card)
-      # Dead-simple strategy: Just take the first match.
-      idx = @hand.find_index{|card| top_card.rank == card.rank || top_card.suit == card.suit  || card.trump?} 
-      @hand.delete_at(idx) if idx
-      # TODO An alternative strategy could be delete_if with the block above, pop one from the result and stuff back the rest
+      puts "#{self} has #{@hand.size} in hand and sees the top card #{top_card}"
+      
+      candidates = @hand.select{|card| top_card.rank == card.rank || top_card.suit == card.suit  || card.trump?}
+      puts "#{self} has #{candidates.size} candidates to choose from."
+      
+      selected = candidates.sort_by{rand}.pop
+      selected.suit = Uno.suits.select{rand} if selected.trump? #  TODO Improve suit selection to take our current hand into account
+      
+      if selected.nil?
+        puts "#{self} decided NOT to play"
+      else
+        puts "#{self} decided to play #{selected}"
+        @hand.delete_if{|card| selected == card}
+        puts "#{self} has #{@hand.size} left in hand."
+      end
+      
+      raise Uno.new(selected) if 1 == @hand.size
+      raise UnoUno.new(selected) if 0 == @hand.size
+      
+      selected
     end
     
     def_delegator :@hand, :size

@@ -2,18 +2,32 @@ require 'forwardable'
 
 module CardGame
   class Deck
+    class << self
+      def ranks
+        []
+      end
+
+      def trumps
+        []
+      end
+
+      def suits
+        []
+      end
+    end
+    
     extend Forwardable
     
     def initialize
       @cards = []
       
-      ranks.each{|name|
-        suits.each{|color|
+      self.class.ranks.each{|name|
+        self.class.suits.each{|color|
           push Card.new(name, color)
         }
       }
       
-      trumps.each{|j| push Trump.new(j)}
+      self.class.trumps.each{|j| push Trump.new(j)}
     end
     
     #
@@ -21,18 +35,6 @@ module CardGame
     #
     def deal
       @cards.sort_by{rand}
-    end
-    
-    def ranks
-      []
-    end
-    
-    def trumps
-      []
-    end
-    
-    def suits
-      []
     end
     
     def_delegator :@cards, :size

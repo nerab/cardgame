@@ -1,6 +1,6 @@
 require 'helper'
 
-class TestCard < Test::Unit::TestCase
+class TestCard < CardGameTest::TestCase
   def setup
     @card = CardGame::Card.new('foo', 'bar')
   end
