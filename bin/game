@@ -4,6 +4,22 @@ $:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
 require 'cardgame'
 include CardGame
 
+class RuleViolation < StandardError; end
+
+#
+# Ensure that everyone follows the rules
+#
+def matches_rules(played, pile)
+  true
+end
+
+class UnoUno < StandardError
+  attr_reader :player, :card
+  def initialize(player, card)
+    @player, @card = player, card
+  end
+end
+
 players = []
 ('A'..'C').each{|i| players << Player.new(i)}
 
@@ -13,10 +29,12 @@ Array.class_eval do
   def replenish(pile)
     concat(pile)
     pile.clear
+    pile.push(pop) # the last card stays on the pile
     sort_by!{rand}
   end
 end
 
+# deal out cards to the players
 7.times{
   players.each{|player|
     player << stack.pop
@@ -28,53 +46,33 @@ pile = []
 
 begin
   pile.push(stack.pop)
-end while pile.first.trump? # do not allow trumps (jokers) as initial card
+end while !pile.first && pile.first.trump? # do not allow trumps (jokers) as initial card
 
-puts "Starting the game with #{players.size} players"
+# puts "Starting the game with #{players.size} players"
+rounds = 0
 
-# main game loop - ask each player to play. Maintain the stack.
-begin
-  players.each{|player|
-    begin      
-      played = player.play(pile.last) #  TODO Potentially need a timeout
+# main game loop - ask each player to play
+loop do
+  begin
+    rounds += 1
+    players.each{|player|
+      begin
+        played = player.play(pile.last)
       
-      if played && matches_rules(played, pile.last)
-        pile.push(played)
-      else
-        stack.replenish(pile) if stack.empty? # replenish stack from pile
-        player << stack.pop # draw a card from the stack
+        if played && matches_rules(played, pile.last)
+          pile.push(played)
+        else
+          stack.replenish(pile) if stack.empty? # replenish stack from pile
+          player << stack.pop # draw a card from the stack
+        end
+      rescue RuleViolation => v
+        puts v.message
+        player << played # Push the offending card back to the player
+        retry
       end
-    rescue RuleViolation => v
-      puts v.message
-      player << played # Push the offending card back to the player
-      retry
-    rescue Uno => card
-      puts "#{player} says: Uno!"
-    rescue UnoUno => card
-      raise "#{player} says: Uno Uno!"
-    end
-  }
-end while !players.any?{|player| player.empty?}
-
-#
-# Ensure that everyone follows the rules
-#
-def matches_rules(played, pile)
-  true
-end
-
-def dump_game(players, stack, pile)
-  players.each_with_index{|player, i|
-    puts
-    puts "* player ##{i} (#{player.size})"
-    puts player
-  }
-  
-  puts
-  puts "* Stack (#{stack.size})"
-  puts stack
-  
-  puts
-  puts "* Pile (#{pile.size})"
-  puts pile
+    }
+  rescue UnoUno => u
+    puts "#{u.player} wins with #{u.card} after #{rounds} rounds."
+    exit
+  end
 end
