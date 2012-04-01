@@ -8,6 +8,7 @@ class RuleViolation < StandardError; end
 
 #
 # Ensure that everyone follows the rules
+# e.g. from https://en.wikipedia.org/wiki/Uno_(card_game)
 #
 def matches_rules(played, pile)
   true
