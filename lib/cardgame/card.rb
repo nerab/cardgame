@@ -1,43 +1,33 @@
 module CardGame
-  class BaseCard
-    attr_reader :rank
+  class Card
+    attr_reader :rank, :suit, :score
     
-    def initialize(rank)
-      @rank = rank
-    end
-  
-    def to_s
-      @rank
+    def initialize(rank, score, suit = nil)
+      @rank, @score, @suit = rank, score, suit
     end
     
+    #
+    # The following card only matches this one if both have either the same suit (color) or the same rank
+    #
+    def matches?(following_card)
+      rank == following_card.rank || suit == following_card.suit
+    end
+
     def trump?
-      false
+      respond_to?(:suit=)
+    end
+    
+    def to_s
+      "#{suit} #{rank}"
     end
   end
   
-  class Trump < BaseCard
-    # When playing a trump card, the player can set which suit it has so that the next player has to follow it
+  class Trump < Card
+    # When playing a trump card, it's the player setting which suit it has, so that the next player has to follow it
     attr_accessor :suit
     
-    def trump?
-      true
-    end
-
-    def to_s
-      "#{super} requiring #{@suit}"
-    end
-  end
-  
-  class Card < BaseCard
-    attr_reader :suit
-    
-    def initialize(rank, suit)
-      super(rank)
-      @suit = suit
-    end
-
-    def to_s
-      "#{@suit} #{super}"
+    def initialize(rank, score)
+      super(rank, score)
     end
   end
 end

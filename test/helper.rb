@@ -35,6 +35,12 @@ module CardGameTest
   end
 
   module DeckTests
+    def test_scores
+      fixture[:scores].each{|score_fixture|
+        assert_equal(score_fixture[:expected], @deck.class.score(score_fixture[:rank], score_fixture[:suite]))
+      }
+    end
+
     def test_suits
       assert_equal(fixture[:suits], @deck.class.suits)
     end

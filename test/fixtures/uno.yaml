@@ -1,41 +1,54 @@
 ---
 :ranks:
-- '0'
-- '1'
-- '2'
-- '3'
-- '4'
-- '5'
-- '6'
-- '7'
-- '8'
-- '9'
-- Reverse
-- Skip
-- '1'
-- '2'
-- '3'
-- '4'
-- '5'
-- '6'
-- '7'
-- '8'
-- '9'
-- Reverse
-- Skip
-- Draw 2
-- Draw 2
+- :_0
+- :_1
+- :_1
+- :_2
+- :_2
+- :_3
+- :_3
+- :_4
+- :_4
+- :_5
+- :_5
+- :_6
+- :_6
+- :_7
+- :_7
+- :_8
+- :_8
+- :_9
+- :_9
+- :_reverse
+- :_reverse
+- :_skip
+- :_skip
+- :_draw_2
+- :_draw_2
 :trumps:
-- Wild Draw 4
-- Wild Draw 4
-- Wild Draw 4
-- Wild Draw 4
-- Wild
-- Wild
-- Wild
-- Wild
+- :_wild_draw_4
+- :_wild_draw_4
+- :_wild_draw_4
+- :_wild_draw_4
+- :_wild
+- :_wild
+- :_wild
+- :_wild
 :suits:
 - Blue
 - Green
 - Red
 - Yellow
+:scores:
+- :expected: 0
+  :rank: :_0
+  :suite: Blue
+- :expected: 0
+  :rank: :_0
+  :suite: Red
+- :expected: 0
+  :rank: :_0
+  :suite: Green
+- :expected: 0
+  :rank: :_0
+  :suite: Yellow

@@ -1,24 +1,42 @@
 {
   "trumps": [],
   "ranks": [
-    "Ace",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "Knave",
-    "Queen",
-    "King"
+    "_ace",
+    "_2",
+    "_3",
+    "_4",
+    "_5",
+    "_6",
+    "_7",
+    "_8",
+    "_9",
+    "_10",
+    "_knave",
+    "_queen",
+    "_king"
   ],
   "suits": [
     "Clubs",
     "Spades",
     "Hearts",
     "Diamonds"
+  ],
+  "scores": [{
+    "expected": 0,
+    "rank": "_0",
+    "suite": "Blue"
+    }, {
+    "expected": 0,
+    "rank": "_0",
+    "suite": "Red"
+    }, {
+    "expected": 0,
+    "rank": "_0",
+    "suite": "Green"
+    }, {
+    "expected": 0,
+    "rank": "_0",
+    "suite": "Yellow"
+    }
   ]
 }

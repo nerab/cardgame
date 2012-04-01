@@ -3,6 +3,10 @@ require 'forwardable'
 module CardGame
   class Deck
     class << self
+      def score(rank, suite = nil)
+        0 
+      end
+      
       def ranks
         []
       end
@@ -21,13 +25,13 @@ module CardGame
     def initialize
       @cards = []
       
-      self.class.ranks.each{|name|
-        self.class.suits.each{|color|
-          push Card.new(name, color)
+      self.class.ranks.each{|rank|
+        self.class.suits.each{|suite|
+          push Card.new(rank, self.class.score(rank, suite), suite)
         }
       }
       
-      self.class.trumps.each{|j| push Trump.new(j)}
+      self.class.trumps.each{|t| push Trump.new(t, self.class.score(t))}
     end
     
     #
