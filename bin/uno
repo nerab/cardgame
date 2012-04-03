@@ -6,7 +6,7 @@ require 'cardgame'
 players = []
 ('A'..'C').each{|i| players << CardGame::Player.new(i)}
 
-CardGame::LOGGER.level = Logger::WARN
+CardGame::LOGGER.level = Logger::DEBUG
 
 game = CardGame::Game::Uno.new(players)
 
