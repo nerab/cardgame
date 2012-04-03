@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+require 'cardgame'
+
+players = []
+('A'..'D').each{|i| players << CardGame::Player.new(i)}
+
+# CardGame::LOGGER.level = Logger::INFO
+
+game = CardGame::Game::Uno.new(players)
+
+puts "Game over after #{game.rounds} rounds"
+
+players.each{|player|
+  if game.winner == player
+    puts "Player #{player.name} won the game"
+  else
+    puts "Player #{player.name} has #{player.size} cards left with #{player.score} points."
+  end
+}

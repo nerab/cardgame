@@ -11,7 +11,11 @@ module CardGame
     end
     
     def to_s
-      "Player #{@name}"
+      "Player #{@name} (#{score})"
+    end
+    
+    def score
+      @hand.inject(0){|sum, c| sum += c.score}
     end
     
     #
@@ -27,25 +31,22 @@ module CardGame
     def play(top_card)
       raise "There must be a card on the pile" if top_card.nil?
       
-#      puts
-#      puts "#{self} plays:"
-#      puts "#{@hand.size} in hand and sees the top card #{top_card}"
-      
       candidates = @hand.select{|card| top_card.rank == card.rank || top_card.suit == card.suit  || card.trump?}
+      LOGGER.debug "#{self} has #{@hand.size} in hand, #{candidates.size} are suitable on top of #{top_card}"
       
       selected = candidates.sort_by{rand}.pop
       
       if selected.nil?
-#        puts "Decided NOT to play"
+        LOGGER.debug "#{self} decided NOT to play"
       else
-        selected.suit = Uno.suits.sample if selected.trump? #  TODO Improve suit selection to take our current hand into account
-#        puts "Decided to play #{selected}"
+        selected.suit = Deck::Uno.suits.sample if selected.trump? #  TODO Improve suit selection to take our current hand into account
         @hand.delete_if{|card| selected == card}
-#        puts "Has #{@hand.size} left in hand."
+        LOGGER.debug "#{self} has #{@hand.size} cards remaining in hand"
+        LOGGER.info "#{self} plays #{selected}"
       end
       
       # raise Uno.new(selected) if 1 == @hand.size
-      raise UnoUno.new(self, selected) if 0 == @hand.size
+      raise Game::UnoUno.new(self, selected) if 0 == @hand.size
       
       selected
     end

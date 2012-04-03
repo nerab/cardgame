@@ -1,3 +1,5 @@
+require 'active_support/core_ext/string'
+
 module CardGame
   class Card
     attr_reader :rank, :suit, :score
@@ -18,7 +20,11 @@ module CardGame
     end
     
     def to_s
-      "#{suit} #{rank}"
+      "#{suit.to_s.titleize} #{rank.to_s.titleize}"
+    end
+    
+    def to_sym
+      to_s.underscore.to_sym
     end
   end
   
@@ -28,6 +34,14 @@ module CardGame
     
     def initialize(rank, score)
       super(rank, score)
+    end
+    
+    def to_s
+      "#{rank.to_s.titleize} requiring #{suit.to_s.titleize}"
+    end
+    
+    def to_sym
+      super.to_s.underscore.to_sym
     end
   end
 end
