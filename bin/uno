@@ -4,9 +4,9 @@ $:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
 require 'cardgame'
 
 players = []
-('A'..'D').each{|i| players << CardGame::Player.new(i)}
+('A'..'C').each{|i| players << CardGame::Player.new(i)}
 
-# CardGame::LOGGER.level = Logger::INFO
+CardGame::LOGGER.level = Logger::WARN
 
 game = CardGame::Game::Uno.new(players)
 

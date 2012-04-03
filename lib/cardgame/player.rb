@@ -50,9 +50,13 @@ module CardGame
       
       selected
     end
+
+    def <<(card)
+      LOGGER.info "#{self} draws #{card}"
+      @hand << card
+    end
     
     def_delegator :@hand, :size
-    def_delegator :@hand, :<<
     def_delegator :@hand, :empty?
   end
 end

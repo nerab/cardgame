@@ -10,33 +10,6 @@ module CardGame
       end
     end
     
-    class DrawPile
-      extend Forwardable
-      def_delegator :@pile, :pop, :draw
-      def_delegator :@pile, :empty?
-      
-      def initialize
-        @pile = Deck::Uno.new.deal
-      end
-      
-      def replenish(discard_pile)
-        @pile.concat(discard_pile)
-        discard_pile.clear
-        discard_pile.push(@pile.pop) # the last card stays on the discard pile
-        @pile.sort_by!{rand}
-      end
-    end
-
-    class DiscardPile
-      extend Forwardable
-      def_delegator :@pile, :push
-      def_delegator :@pile, :last, :top
-      
-      def initialize
-        @pile = []
-      end
-    end
-    
     class Uno
       attr_reader :winner, :rounds
       
@@ -81,8 +54,8 @@ module CardGame
               end
             }
           end
-        rescue CardGame::Game::UnoUno => u
-          @winner = u.player
+        rescue CardGame::Game::UnoUno => uu
+          @winner = uu.player
         end
         LOGGER.info "#{@winner} wins after #{@rounds} rounds."
       end
