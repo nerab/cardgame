@@ -1,12 +1,10 @@
 require 'helper'
-require 'awesome_print'
 
-class TestUno < CardGameTest::TestCase
+class TestUnoDeck < CardGameTest::TestCase
   include CardGame
-  include CardGameTest::DeckTests
   
   def setup
-    @deck = Uno.new
+    @deck = Deck::Uno.new
   end
   
   def test_size

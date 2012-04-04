@@ -1,21 +1,23 @@
 #!/usr/bin/env ruby
 
-$:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
-require 'cardgame'
+require 'bundler'
+Bundler.require
 
 players = []
-('A'..'C').each{|i| players << CardGame::Player.new(i)}
+('A'..'C').each{|i| players << CardGame::Player::AutoPlayer.new(i)}
+#players << CardGame::Player::LazyPlayer.new('LAZY', 3)
 
 CardGame::LOGGER.level = Logger::DEBUG
 
 game = CardGame::Game::Uno.new(players)
-
+game.play!(12)
 puts "Game over after #{game.rounds} rounds"
 
+points = 0
 players.each{|player|
-  if game.winner == player
-    puts "Player #{player.name} won the game"
-  else
-    puts "Player #{player.name} has #{player.size} cards left with #{player.score} points."
+  if game.winner != player
+    puts "Player #{player.name} has #{player.hand.size} card(s) left with #{player.score} point(s)."
+    points += player.score
   end
 }
+puts "Player #{game.winner.name} won the game and gets #{points} points."

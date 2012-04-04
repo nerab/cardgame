@@ -11,6 +11,7 @@ end
 
 module CardGameTest
   class TestCase < Test::Unit::TestCase
+    include CardGame
     FIXTURES_DIR = File.join(File.dirname(__FILE__), 'fixtures')
 
     def fixture(name = self.class.name.underscore.match(/test_(.*)/)[1])

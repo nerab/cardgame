@@ -1,17 +1,13 @@
-require 'cardgame/version'
-require 'cardgame/card'
-require 'cardgame/player'
-
-require 'cardgame/deck/base'
-require 'cardgame/deck/uno'
-require 'cardgame/deck/french'
-
-require 'cardgame/game/uno'
-require 'cardgame/game/draw_pile'
-require 'cardgame/game/discard_pile'
-
 require 'logger'
+require 'forwardable'
+
+# recursively require all ruby files, adding their path to the load path
+Dir[File.dirname(__FILE__) + "/**/*.rb"].each do |file|
+  $LOAD_PATH.unshift(File.dirname(file))
+  require file
+end
 
 module CardGame
   LOGGER = Logger.new(STDERR)
+  LOGGER.level = Logger::ERROR
 end

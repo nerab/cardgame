@@ -1,10 +1,10 @@
 require 'helper'
 
 class TestFrench < CardGameTest::TestCase
-  include CardGameTest::DeckTests
+#  include CardGameTest::DeckTests
   
   def setup
-    @deck = CardGame::French.new
+    @deck = CardGame::Deck::French.new
   end
   
   def test_size
