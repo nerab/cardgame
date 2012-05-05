@@ -1,4 +1,4 @@
-require 'helper'
+require File.join(File.dirname(__FILE__), '..', 'helper')
 
 class TestPlayOrder < Test::Unit::TestCase
   def test_empty

@@ -1,13 +1,5 @@
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-
 require 'test/unit'
 require 'cardgame'
-require 'yaml'
-require 'json'
-require 'active_support/core_ext/string'
-
-class Test::Unit::TestCase
-end
 
 module CardGameTest
   class TestCase < Test::Unit::TestCase
